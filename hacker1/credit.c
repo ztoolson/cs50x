@@ -12,41 +12,45 @@
 int GetFirstDigits(int n, long long num) {
   long long log10 = ( log(num)/log(10) ) + 1;
   long long divisor = pow(10, log10 - n);
-  int res = num / divisor;
-  return res;
+  return num / divisor;
 }
 
 bool IsValidCreditCard(long long cc_number) {
 
+  int total_sum, cc_num_digits, product_length, other_length, count, i, j, sum_of_products_digits, sum_other;
+  long long temp_user_input;
   bool is_valid_card_number = false;
 
   // Determine the length of the credit card
-  int cc_num_digits = log10(cc_number) + 1;
+  cc_num_digits = log10(cc_number) + 1;
 
   // Set up arrays to use for storing each digit
-  int product_length = cc_num_digits / 2;
-  int other_length = cc_num_digits % 2 == 0 ? product_length : product_length + 1;
+  product_length = cc_num_digits / 2;
+  other_length = cc_num_digits % 2 == 0 ? product_length : product_length + 1;
 
   int product_of_digits[product_length]; 
   int other_digits[other_length];
 
-  int count = 0;
-  long long temp_user_input = cc_number;
+  count = 0;
+  temp_user_input = cc_number;
+
+  /* Add each digit to proper array */
   do {
     int digit = temp_user_input % 10;
+
     if (count % 2 == 1) {
       product_of_digits[count / 2] = digit * 2; 
     }
     else {
       other_digits[count / 2] = digit;
     }
+
     ++count;
   }
   while (temp_user_input /= 10);
   
   // Add each digit of the products together
-  int i;
-  int sum_of_products_digits = 0;
+  sum_of_products_digits = 0;
   for(i = 0; i < product_length; ++i) {
     int n = product_of_digits[i];
     do {
@@ -58,14 +62,13 @@ bool IsValidCreditCard(long long cc_number) {
 
   // Add the sum_of_product_digits to all the digits that weren't 
   // multiplied by 2
-  int sum_other = 0;
-  int j;
+  sum_other = 0;
   for(j = 0; j < other_length; ++j) {
     sum_other += other_digits[j];
   }
   
   // Check if card has valid number
-  int total_sum = sum_other + sum_of_products_digits;
+  total_sum = sum_other + sum_of_products_digits;
   is_valid_card_number = total_sum % 10 == 0 ? true : false;
 
   return is_valid_card_number;
@@ -80,18 +83,17 @@ int main(void) {
   // Set up variables
   string output = "INVALID";
   long long user_input;
+  int cc_num_digits;
+  bool is_valid_card_number;
 
 
   // Get the number as a float from user
   printf("Enter your credit card number:\n");
   user_input = GetLongLong();
-  int cc_num_digits = log10(user_input) + 1;
+  cc_num_digits = log10(user_input) + 1;
 
   // *** Determine if it is valid credit card
-  bool is_valid_card_number =IsValidCreditCard(user_input);
-  
-  // Multiply every other digit by 2, starting with the number's second-to-last digit
-  // And store result in a list of integers
+  is_valid_card_number =IsValidCreditCard(user_input);
   
 
   // *** If valid:  Check AMEX, DISCOVER, or VISA
