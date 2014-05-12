@@ -11,8 +11,9 @@ int main(int argc, char * argv[]) {
   // Program accepts one command-line argument which is a non-negative number.
   // Will return 1 if this is not the case
 
-  //@TODO fix way that the program terminates with incorrect command line arguments
   if (argc != 2) {
+    printf("Check command line arguements and try again\n");
+    printf("Expecting './caesar <key>' where key is a positive integer");
     return 1;
   }
 
