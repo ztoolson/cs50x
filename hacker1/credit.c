@@ -1,3 +1,11 @@
+/*
+  Author: Zach Toolson
+  Date: May, 2014
+
+  credit.c gets a credit card number from the user in the form of a
+  number, and then validates whether it is a valid American Express,
+  Discover, or Visa card.
+*/
 #include <cs50.h>
 #include <stdio.h>
 #include <math.h>

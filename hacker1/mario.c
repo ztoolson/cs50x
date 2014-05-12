@@ -1,3 +1,19 @@
+/*
+  Author: Zach Toolson
+  Date: May, 2014
+
+  Gets user input for height of the mario like structure and prints it out.
+  This version outputs two half pyramids.
+
+  For example
+  User Input: 4
+  Output:
+     #  #
+    ##  ##
+   ###  ###
+  ####  ####
+
+*/
 #include <cs50.h>
 #include <stdio.h>
 

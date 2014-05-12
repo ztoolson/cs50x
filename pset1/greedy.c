@@ -1,3 +1,11 @@
+/*
+  Author: Zach Toolson
+  Date: May, 2014
+
+  This program gets a float from the user asking for an amount of money.
+  greedy.c will calculate the minumum number of coins needed to achieve that
+  amount entered using quarters, dimes, nickels, and pennies.
+*/
 #include <cs50.h>
 #include <stdio.h>
 
