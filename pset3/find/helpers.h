@@ -44,4 +44,5 @@ void insertion_sort(int values[], int n);
 /**
  * Implements merge sort algorithm
  */
-void merge_sort(int values[], int n);
+void merge(int values[], int min, int mid, int max);
+void merge_sort(int values[], int min_index, int max_index);

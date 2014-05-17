@@ -24,6 +24,19 @@ bool search(int value, int values[], int n)
 }
 
 /**
+ * Sorts array of n values.
+ */
+void sort(int values[], int n)
+{
+    //bubble_sort(values, n);
+    //selection_sort(values, n);
+    //insertion_sort(values, n);
+    merge_sort(values, 0, n-1);
+
+    return;
+}
+
+/**
  * Linear search algorithm.
  * Iterate over every item in the array, and check if it is the value.
  */
@@ -46,32 +59,34 @@ int linear_search(int value, int values[], int n)
  * Binary search algorithm using recursion. Pre-condition: values[] must be sorted.
  * 
  */
-int binary_search_r(int value, int values[], int min_index,  int max_index)
+int binary_search_r(int value, int values[], int min_index, int max_index)
 {
-    // Invalid index values, return -1 stating item isn't in the array
-    if (min_index > max_index)
-    {
-        return -1;
-    }
+    int mid = min_index + ((max_index - min_index) / 2);
 
-    // Calculate the mid index
-    int mid = (min_index + (max_index - min_index)) / 2; // Limited number calculation to prevent overflow
-    
-    // Is the index at the middle of the remaining the value? if so
-    // return the index
-    if (value == values[mid])
+    // Base Case, item has not been found
+    if (min_index == max_index && value != values[mid])
     {
-        return mid;
+        return -1; 
     }
-    else if (value < values[mid])
-    // value is lower than subset, check lower half of remaining array
-    {
-        return binary_search_r(value, values, min_index, mid-1);
-    }
-    else if (value > values[mid])
-    // value is higher that subset, check hight half of remaining array
-    {
-        return binary_search_r(value, values, mid+1, max_index); 
+    else
+    // Keep searching for item in subarray
+    {   
+        // Base case Item has been found
+        if (value == values[mid])
+        { 
+            return mid; // value found
+        }
+        // Determine which subdirectory to continue searching
+        else if (value < values[mid])
+        {
+            // search lower subset
+            return binary_search_r(value, values, min_index, mid-1);
+        }
+        else if (value > values[mid])
+        {
+            // search upper subset
+            return binary_search_r(value, values, mid+1, max_index);
+        }
     }
 
     return -1;
@@ -86,39 +101,28 @@ int binary_search_it(int value, int values[], int max_index)
     
     while (max_index >= min_index)
     {
-        int mid = (min_index + (max_index - min_index)) / 2; // Limited number calculation to prevent overflow
+        int mid = min_index + ((max_index - min_index) / 2); // Limited number calculation to prevent overflow
         
-        // found the item, return the index
-        if (values[mid] == value)
-        {
-            return mid;
-        }
         // Determine which subarray to search
-        else if (values[mid] < value)
+        if (value < values[mid])
+        {
+            max_index = mid - 1;
+        }
+        else if (value > values[mid])
         {
             min_index = mid + 1;
         }
         else
+        // found the item, return the index
         {
-            max_index = mid -1;
+            return mid;
         }
-
     }
 
     // Value was not found
     return -1;
 }
 
-/**
- * Sorts array of n values.
- */
-void sort(int values[], int n)
-{
-    //bubble_sort(values, n);
-    //selection_sort(values, n);
-    insertion_sort(values, n);
-    return;
-}
 
 void bubble_sort(int values[], int n)
 {
@@ -207,8 +211,60 @@ void insertion_sort(int values[], int n)
 /**
  *
  */
-void merge_sort(int values[], int n)
+void merge(int values[], int min, int mid, int max)
 {
-    // TODO: implement an O(n * log n) sorting algorithm
+    int temp_length = max-min + 1;
+    int temp_array[temp_length]; // temp array for sorting
+
+    int pos = 0;
+    int left_pos = min;
+    int right_pos = mid + 1;
+    
+    // Sort the values
+    while (left_pos <= mid && right_pos <= max)
+    {
+        if (values[left_pos] < values[right_pos])
+        {
+            // Copy value into temp array and move up the left pos and position
+            temp_array[pos++] = values[left_pos++];
+        }
+        else
+        {
+            temp_array[pos++] = values[right_pos++];
+        }
+    }
+    // Copy remaining values into the array
+    while (left_pos <= mid)
+        temp_array[pos++] = values[left_pos++];
+    while (right_pos <= max)
+        temp_array[pos++] = values[right_pos++];
+    
+    /* Copy temp values back into the original array */
+    for (int i = 0; i < temp_length; ++i)
+    {
+        values[i + min] = temp_array[i];
+    }
+
     return;
 }
+
+/**
+ *
+ */
+void merge_sort(int values[], int min, int max)
+{
+    int mid = (min + max) / 2;
+
+    if (min < max)
+    {
+        // Sort the left half values
+        merge_sort(values, min, mid);
+        // Sort the right half values
+        merge_sort(values, mid+1, max);
+
+        merge(values, min, mid, max);
+    }
+
+    return;
+}
+
