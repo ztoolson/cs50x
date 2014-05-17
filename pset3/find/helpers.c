@@ -9,7 +9,6 @@
        
 #include <cs50.h>
 #include <stdio.h>
-
 #include "helpers.h"
 
 /**
@@ -18,13 +17,15 @@
 bool search(int value, int values[], int n)
 {
 //    int index = linear_search(value, values, n);
-    int index = binary_search_r(value, values, 0, n-1);
+//    int index = binary_search_r(value, values, 0, n-1);
+    int index = binary_search_it(value, values, n-1);
 
     return index == -1 ? false : true; 
 }
 
 /**
- * Linear search algorithm
+ * Linear search algorithm.
+ * Iterate over every item in the array, and check if it is the value.
  */
 int linear_search(int value, int values[], int n)
 {
@@ -43,29 +44,32 @@ int linear_search(int value, int values[], int n)
 
 /**
  * Binary search algorithm using recursion. Pre-condition: values[] must be sorted.
+ * 
  */
 int binary_search_r(int value, int values[], int min_index,  int max_index)
 {
-    // TODO    
+    // Invalid index values, return -1 stating item isn't in the array
     if (min_index > max_index)
     {
         return -1;
     }
 
-
+    // Calculate the mid index
     int mid = (min_index + (max_index - min_index)) / 2; // Limited number calculation to prevent overflow
-
-    // Determine how to update index
+    
+    // Is the index at the middle of the remaining the value? if so
+    // return the index
     if (value == values[mid])
     {
         return mid;
     }
     else if (value < values[mid])
-    // key is lower than subset
+    // value is lower than subset, check lower half of remaining array
     {
         return binary_search_r(value, values, min_index, mid-1);
     }
     else if (value > values[mid])
+    // value is higher that subset, check hight half of remaining array
     {
         return binary_search_r(value, values, mid+1, max_index); 
     }
@@ -76,10 +80,33 @@ int binary_search_r(int value, int values[], int min_index,  int max_index)
 /**
  * Binary search algorithm iteratively implemented. Pre-condition: values[] must be sorted.
  */
-int binary_search_it(int value, int values[], int n)
+int binary_search_it(int value, int values[], int max_index)
 {
-    // TODO    
-    return false;
+    int min_index = 0;
+    
+    while (max_index >= min_index)
+    {
+        int mid = (min_index + (max_index - min_index)) / 2; // Limited number calculation to prevent overflow
+        
+        // found the item, return the index
+        if (values[mid] == value)
+        {
+            return mid;
+        }
+        // Determine which subarray to search
+        else if (values[mid] < value)
+        {
+            min_index = mid + 1;
+        }
+        else
+        {
+            max_index = mid -1;
+        }
+
+    }
+
+    // Value was not found
+    return -1;
 }
 
 /**
@@ -88,8 +115,8 @@ int binary_search_it(int value, int values[], int n)
 void sort(int values[], int n)
 {
     //bubble_sort(values, n);
-    selection_sort(values, n);
-    //insertion_sort(values, n);
+    //selection_sort(values, n);
+    insertion_sort(values, n);
     return;
 }
 
@@ -111,9 +138,6 @@ void bubble_sort(int values[], int n)
         }
     }
     
-    printf("in bubble_sort\n");
-    for (int i = 0; i < n; ++i)
-        printf("%i\n", values[i]);
     return;
 }
 
@@ -145,10 +169,6 @@ void selection_sort(int values[], int n)
         values[index_of_min] = temp;
     }
 
-
-    printf("in sort method\n");
-    for (int i =0; i < n; ++i)
-        printf("%i\n", values[i]);
     return;
 }
 
