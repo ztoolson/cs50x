@@ -131,7 +131,23 @@ void greet(void)
  */
 void init(void)
 {
-    // TODO
+    int total_tiles = (d * d) - 1;
+    
+    // Fill the board counting backwards
+    int current_tile = total_tiles;
+    for(int row=0; row < d; ++row) {
+        for(int col=0; col < d; ++col) {
+            board[row][col] = current_tile;
+            current_tile--;
+        }
+    }
+
+    // If total tiles is odd, switch tile 2 and 1.
+    // board[d-1][d-1] is the bottom right side of the board
+    if (total_tiles % 2 != 0) {
+        board[d-1][d-2] = 2;
+        board[d-1][d-3] = 1;
+    }
 }
 
 /**
@@ -139,7 +155,18 @@ void init(void)
  */
 void draw(void)
 {
-    // TODO
+    for(int row=0; row < d; ++row) {
+        for(int col=0; col < d; ++col) {
+            // Replace 0 with _ for our board, otherwise print number
+            if (board[row][col] == 0) {
+                printf("%2c ", 95); // 95 is ascii num for '_'
+            }
+            else {
+                printf("%2d ", board[row][col]);
+            }
+        }
+        printf("\n");
+    }
 }
 
 /**
