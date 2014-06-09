@@ -34,6 +34,9 @@ int board[MAX][MAX];
 // board's dimension
 int d;
 
+// Current Blank Space location
+int blank_row, blank_col;
+
 // prototypes
 void clear(void);
 void greet(void);
@@ -148,6 +151,10 @@ void init(void)
         board[d-1][d-2] = 2;
         board[d-1][d-3] = 1;
     }
+
+    // Update blank space
+    blank_row = d-1;
+    blank_col = d-1;
 }
 
 /**
@@ -175,8 +182,44 @@ void draw(void)
  */
 bool move(int tile)
 {
-    // TODO
-    return false;
+    int target_row = -1;
+    int target_col = -1;
+    bool result = false;
+
+    // Check 4 possible moves around the tile. First part of each statement
+    // is to verify the access to the board is valid.
+    if ( (blank_row + 1 < d) && board[blank_row + 1][blank_col] == tile ){ // Down
+        target_row = blank_row + 1;
+        target_col = blank_col;
+    } 
+    else if ( (blank_row -1 >= 0) && board[blank_row - 1][blank_col] == tile ) { // Up
+        target_row = blank_row - 1;
+        target_col = blank_col;
+    }
+    else if ( (blank_col + 1 < d) && board[blank_row][blank_col + 1] == tile ) { // Right
+        target_row = blank_row;
+        target_col = blank_col + 1;
+    }
+    else if ( (blank_row -1 >= 0) && board[blank_row][blank_col - 1] == tile ) { // Left
+        target_row = blank_row;
+        target_col = blank_col - 1;
+    }
+
+    if(target_row > -1 || target_col > -1) {
+        // Move tile
+        board[blank_row][blank_col] = tile;
+        // Move blank
+        board[target_row][target_col] = 0;
+
+        // Update blank location
+        blank_row = target_row;
+        blank_col = target_col;
+
+        result = true;
+    }
+
+     
+    return result;
 }
 
 /**
