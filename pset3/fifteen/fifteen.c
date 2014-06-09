@@ -86,6 +86,7 @@ int main(int argc, string argv[])
         if (won())
         {
             printf("ftw!\n");
+            printf("Congratulations! You have won a difficult game.\n");
             break;
         }
 
@@ -229,7 +230,21 @@ bool move(int tile)
 bool won(void)
 {
     // TODO
-    return false;
+    int count = 1;
+    bool result = false;
+
+    for(int row=0; row < d; ++row) {
+        for (int col=0; col < d; ++col) {
+            if (count == d*d){
+                result=true;
+            }
+            else if (board[row][col] != count) {
+                break;
+            }
+            count++;
+        }
+    }
+    return result;
 }
 
 /**
