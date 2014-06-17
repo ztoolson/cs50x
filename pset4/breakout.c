@@ -90,6 +90,41 @@ int main(void)
 void initBricks(GWindow window)
 {
     // TODO
+    // Variables used to determine where bricks are.
+    int current_x = 0;
+    int current_y = HEIGHT - 550;
+    int brick_width = 34;
+    int brick_height = 10 ;
+    int x_space = 3;
+    int y_space = 7;
+    
+    // Add colors to the blocks
+    string colors[5];
+    colors[0] = "RED";
+    colors[1] = "ORANGE";
+    colors[2] = "YELLOW";
+    colors[3] = "GREEN";
+    colors[4] = "BLUE";
+    
+
+    // Add the bricks to the window
+    for (int row = 0; row < ROWS; ++row)
+    {
+        for (int col = 0;  col < COLS; ++col)
+        {
+            current_x = current_x + x_space;
+            
+            GRect rect = newGRect(current_x, current_y, brick_width, brick_height);
+            setFilled(rect, true);
+            setColor(rect, colors[row]);
+            add(window, rect);
+
+            current_x = current_x + brick_width + x_space;
+        }
+        current_y = current_y + brick_height + y_space;
+        current_x = 0; // Reset the x position
+    }
+
 }
 
 /**
