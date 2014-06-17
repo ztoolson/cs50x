@@ -22,7 +22,7 @@
 #define WIDTH 400
 
 // number of rows of bricks
-#define ROWS 5
+#define ROWS 7
 
 // number of columns of bricks
 #define COLS 10
@@ -74,6 +74,7 @@ int main(void)
     while (lives > 0 && bricks > 0)
     {
         // TODO
+        // Update paddle with mouse
     }
 
     // wait for click before exiting
@@ -94,9 +95,9 @@ void initBricks(GWindow window)
     int y_space = 7;
     int current_x = 0;
     int current_y = 50;
-
     int brick_width = (WIDTH / COLS) - 2 * x_space; // Leave space for left and right of brick
-    int brick_height = 10 ;
+    int brick_height = (HEIGHT / ROWS) / (ROWS * 2) ;
+
     // Add colors to the blocks
     string colors[5];
     colors[0] = "RED";
@@ -104,7 +105,6 @@ void initBricks(GWindow window)
     colors[2] = "YELLOW";
     colors[3] = "GREEN";
     colors[4] = "BLUE";
-    
 
     // Add the bricks to the window
     for (int row = 0; row < ROWS; ++row)
@@ -117,7 +117,8 @@ void initBricks(GWindow window)
             // Create block and add to window
             GRect rect = newGRect(current_x, current_y, brick_width, brick_height);
             setFilled(rect, true);
-            setColor(rect, colors[row]);
+            int color_index = row % 5; // 5 is length of color array
+            setColor(rect, colors[color_index]); // Repeat the colors if more than 5 rows
             add(window, rect);
             
             // Add spacing to the right of the block
@@ -134,8 +135,20 @@ void initBricks(GWindow window)
  */
 GOval initBall(GWindow window)
 {
-    // TODO
-    return NULL;
+    // Variables used for ball
+    int ball_width = (WIDTH / COLS) / 3; // ball size dependent on number of cols, ball is 3 times smaller than the bricks 
+    int center_x = WIDTH / 2 - (ball_width / 2);
+    int center_y = HEIGHT / 2;
+    
+    // Create the ball
+    GOval ball = newGOval(center_x, center_y, ball_width, ball_width);
+    setFilled(ball, true);
+    setColor(ball, "BLACK");
+
+    // Add the ball to the center
+    add(window, ball);
+
+    return ball;
 }
 
 /**
@@ -144,6 +157,7 @@ GOval initBall(GWindow window)
 GRect initPaddle(GWindow window)
 {
     // TODO
+    int paddle_width = (WIDTH / COLS) * 2;
     return NULL;
 }
 
