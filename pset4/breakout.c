@@ -22,10 +22,10 @@
 #define WIDTH 400
 
 // number of rows of bricks
-#define ROWS 7
+#define ROWS 5
 
 // number of columns of bricks
-#define COLS 10
+#define COLS 8
 
 // radius of ball in pixels
 #define RADIUS 10
@@ -102,14 +102,21 @@ int main(void)
         }
 
         // bounce off bottom edge of window
+        // ***** LOSE A LIFE! *******
         if (getY(ball) + getWidth(ball) >= getHeight(window))
         {
             lives--;
+
+            // Move ball back to center to restart game
             int center_x = getWidth(window) / 2 - (getWidth(ball) / 2);
             int center_y = getHeight(window) / 2;
             setLocation(ball, center_x, center_y);
+
+            // Recalculate a velocity for the ball
             srand48(time(NULL));
             x_velocity = (drand48() * 2 + 1) * (-1 * lives);
+            
+            // User must click to play again
             waitForClick();
         }
         // bounce off the top edge of the window
@@ -121,7 +128,7 @@ int main(void)
         // linger before moving again
         pause(10);
 
-        // Update paddle with mouse
+        // Update paddle with mouse movement
         // check for mouse event
         GEvent event = getNextEvent(MOUSE_EVENT);
 
