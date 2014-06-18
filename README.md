@@ -1,9 +1,9 @@
 Working through the cs50 course on edX for fun!
 
 pset1 - C
-    Itsa Mario (Easier)
-    Time for Change
-    http://d2o9nyf4hwsci4.cloudfront.net/2014/spring/psets/1/pset1/pset1.html
+- Itsa Mario (Easier)
+- Time for Change
+- http://d2o9nyf4hwsci4.cloudfront.net/2014/spring/psets/1/pset1/pset1.html
 
 hacker1 - C
     Bad Credit Card
