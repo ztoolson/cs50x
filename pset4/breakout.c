@@ -38,6 +38,8 @@ void initBricks(GWindow window);
 GOval initBall(GWindow window);
 GRect initPaddle(GWindow window);
 GLabel initScoreboard(GWindow window);
+GLabel initLivesLabel(GWindow window);
+void updateLivesLabel(GWindow window, GLabel label, int lives);
 void updateScoreboard(GWindow window, GLabel label, int points);
 GObject detectCollision(GWindow window, GOval ball);
 
@@ -66,6 +68,9 @@ int main(void)
     // instantiate scoreboard, centered in middle of window, just above ball
     GLabel label = initScoreboard(window);
 
+    // instantiate scoreboard, centered in middle of window, just above ball
+    GLabel lives_label = initLivesLabel(window);
+
     // number of bricks initially
     int bricks = COLS * ROWS;
 
@@ -78,11 +83,12 @@ int main(void)
     // User must click to start game
     waitForClick();
 
+    updateLivesLabel(window, lives_label, lives);
     // keep playing until game over
     while (lives > 0 && bricks > 0)
     {
         // update score
-        points = (ROWS * COLS) - bricks;
+        points = ((ROWS * COLS) - bricks) * 5;
         updateScoreboard(window, label, points);
 
         // move ball along
@@ -106,6 +112,7 @@ int main(void)
         if (getY(ball) + getWidth(ball) >= getHeight(window))
         {
             lives--;
+            updateLivesLabel(window, lives_label, lives);
 
             // Move ball back to center to restart game
             int center_x = getWidth(window) / 2 - (getWidth(ball) / 2);
@@ -278,6 +285,35 @@ GLabel initScoreboard(GWindow window)
     add(window, scoreboard);
 
     return scoreboard;
+}
+
+/**
+ * Instantiates, configures, and returns label for lives.
+ */
+GLabel initLivesLabel(GWindow window)
+{
+    GLabel lives = newGLabel("Lives: 0");
+
+    // Variables used for placing scoreboard
+    double x = 10;
+    double y = 20 ;
+    setLocation(lives, x, y);
+
+    // Add scoreboard to window
+    add(window, lives);
+
+    return lives;
+}
+
+/**
+ * Updates lives's label.
+ */
+void updateLivesLabel(GWindow window, GLabel label, int lives)
+{
+    // update label
+    char s[7 + 12]; // 7 for constance lives, and 12 for potentially a lot of lives...
+    sprintf(s, "Lives: %i", lives);
+    setLabel(label, s);
 }
 
 /**
