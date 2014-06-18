@@ -41,6 +41,10 @@ GLabel initScoreboard(GWindow window);
 GLabel initLivesLabel(GWindow window);
 void updateLivesLabel(GWindow window, GLabel label, int lives);
 void updateScoreboard(GWindow window, GLabel label, int points);
+void checkWindowBounce(GWindow window, GOval ball, double* x_velocity_addr, double* y_velocity_addr);
+void restartGame(GWindow window, GOval ball, double* x_velocity);
+void movePaddle(GRect paddle);
+void checkObjectCollision(GWindow window, GOval ball, GRect paddle, double* x_velocity, double* y_velocity, int* bricks);
 GObject detectCollision(GWindow window, GOval ball);
 
 int main(void)
@@ -83,92 +87,40 @@ int main(void)
     // User must click to start game
     waitForClick();
 
+    // display defualt lives 
     updateLivesLabel(window, lives_label, lives);
+
+    // ******PLAY GAME ******
     // keep playing until game over
     while (lives > 0 && bricks > 0)
     {
-        // update score
+        // update score 
         points = ((ROWS * COLS) - bricks) * 5;
         updateScoreboard(window, label, points);
 
-        // move ball along
+        // move ball
         move(ball, x_velocity, y_velocity);
 
-        // bounce off right edge of window
-        // NOTE: measure ball from top left, so we need to add width of ball
-        if (getX(ball) + getWidth(ball) >= getWidth(window))
-        {
-            x_velocity = -x_velocity;
-        }
+        // check for bounces off left, right, and top edges of game window
+        checkWindowBounce(window, ball, &x_velocity, &y_velocity);
 
-        // bounce off left edge of window
-        else if (getX(ball) <= 0)
-        {
-            x_velocity = -x_velocity;
-        }
-
-        // bounce off bottom edge of window
-        // ***** LOSE A LIFE! *******
+        // check bounce off bottom edge of window
         if (getY(ball) + getWidth(ball) >= getHeight(window))
         {
+            // ***** LOSE A LIFE! *******
             lives--;
             updateLivesLabel(window, lives_label, lives);
-
-            // Move ball back to center to restart game
-            int center_x = getWidth(window) / 2 - (getWidth(ball) / 2);
-            int center_y = getHeight(window) / 2;
-            setLocation(ball, center_x, center_y);
-
-            // Recalculate a velocity for the ball
-            srand48(time(NULL));
-            x_velocity = (drand48() * 2 + 1) * (-1 * lives);
-            
-            // User must click to play again
-            waitForClick();
-        }
-        // bounce off the top edge of the window
-        else if (getY(ball) <= 0)
-        {
-            y_velocity = -y_velocity;
+            restartGame(window, ball, &x_velocity);
         }
 
         // linger before moving again
-        pause(10);
+        pause(7);
 
         // Update paddle with mouse movement
-        // check for mouse event
-        GEvent event = getNextEvent(MOUSE_EVENT);
-
-        // if we heard one
-        if (event != NULL)
-        {
-            // if the event was movement
-            if (getEventType(event) == MOUSE_MOVED)
-            {
-                // Only update the x value
-                double x = getX(event) - getWidth(paddle) / 2; // Subtract off the radius to center the ball 
-                setLocation(paddle, x, paddle_y);
-            }
-        }
+        movePaddle(paddle);
 
         // Detect if ball collides with Brick or Paddle
-        GObject collision_object = detectCollision(window, ball);
-
-        if (collision_object != NULL)
-        {
-            // Ball collided with paddle
-            if (collision_object == paddle)
-            {
-                y_velocity = -y_velocity;
-            }
-            // Detected a Brick
-            else if (strcmp(getType(collision_object), "GRect") == 0)
-            {
-                y_velocity = -y_velocity;
-                removeGWindow(window, collision_object);
-                bricks--;
-            }
-        }
+        checkObjectCollision(window, ball, paddle, &x_velocity, &y_velocity, &bricks);
     }
 
     // wait for click before exiting
@@ -330,6 +282,103 @@ void updateScoreboard(GWindow window, GLabel label, int points)
     double x = (getWidth(window) - getWidth(label)) / 2;
     double y = (getHeight(window) - getHeight(label)) / 2;
     setLocation(label, x, y);
+}
+
+
+/**
+ * Update the x_velocity and y_velocity if the ball has bounced off the edge of the window
+ */
+void checkWindowBounce(GWindow window, GOval ball, double* x_velocity_addr, double* y_velocity_addr)
+{
+
+    // bounce off right edge of window
+    // NOTE: measure ball from top left, so we need to add width of ball
+    if (getX(ball) + getWidth(ball) >= getWidth(window))
+    {
+        *x_velocity_addr = -1 *  *x_velocity_addr;
+    }
+    // bounce off left edge of window
+    else if (getX(ball) <= 0)
+    {
+        *x_velocity_addr = -1 *  *x_velocity_addr;
+    }
+
+    // bounce off the top edge of the window
+    if (getY(ball) <= 0)
+    {
+        *y_velocity_addr = -1 * *y_velocity_addr;
+    }
+}
+
+/**
+ * Move the ball to center of screen, recalculate a random x_velocity,
+ * and wait for user to click before playing again.
+ */
+void restartGame(GWindow window, GOval ball, double* x_velocity)
+{
+    // Move ball back to center
+    int center_x = getWidth(window) / 2 - (getWidth(ball) / 2);
+    int center_y = getHeight(window) / 2;
+    setLocation(ball, center_x, center_y);
+
+    // Recalculate a velocity for the ball
+    srand48(time(NULL));
+    double drand = drand48();
+    *x_velocity = (drand * 2 + 1);
+    // Add some randomness to the restart
+    if (drand < 0.5)
+    {
+        *x_velocity = *x_velocity * -1;
+    }
+    
+    // User must click to play again
+    waitForClick();
+}
+
+/**
+ * Move the paddle with the mouse movement
+ */
+void movePaddle(GRect paddle)
+{
+    // check for mouse event
+    GEvent event = getNextEvent(MOUSE_EVENT);
+
+    // if we heard one
+    if (event != NULL)
+    {
+        // if the event was movement
+        if (getEventType(event) == MOUSE_MOVED)
+        {
+            // Only update the x value
+            double x = getX(event) - getWidth(paddle) / 2; // Subtract off the radius to center the ball 
+            setLocation(paddle, x, getY(paddle));
+        }
+    }
+}
+
+/**
+ * Check if the ball has collided with the paddle or a brick
+ */
+void checkObjectCollision(GWindow window, GOval ball, GRect paddle, double* x_velocity, double* y_velocity, int* bricks)
+{
+    GObject collision_object = detectCollision(window, ball);
+
+    // Determine if the ball has collided with another object in the window
+    if (collision_object != NULL)
+    {
+        // Ball collided with paddle
+        if (collision_object == paddle)
+        {
+            *y_velocity = -1 * *y_velocity;
+        }
+        // Detected a Brick
+        else if (strcmp(getType(collision_object), "GRect") == 0)
+        {
+            *y_velocity = *y_velocity * -1;
+            removeGWindow(window, collision_object);
+            *bricks = *bricks - 1;
+        }
+    }
 }
 
 /**
