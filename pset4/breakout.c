@@ -49,6 +49,8 @@ GObject detectCollision(GWindow window, GOval ball);
 
 int main(void)
 {
+    // ************ SET UP GAME WINDOW *****************
+    
     // seed pseudorandom number generator
     srand48(time(NULL));
 
@@ -87,10 +89,11 @@ int main(void)
     // User must click to start game
     waitForClick();
 
-    // display defualt lives 
+    // *****************PLAY GAME ******************
+
+    // display default lives 
     updateLivesLabel(window, lives_label, lives);
 
-    // ******PLAY GAME ******
     // keep playing until game over
     while (lives > 0 && bricks > 0)
     {
@@ -122,9 +125,6 @@ int main(void)
         // Detect if ball collides with Brick or Paddle
         checkObjectCollision(window, ball, paddle, &x_velocity, &y_velocity, &bricks);
     }
-
-    // wait for click before exiting
-    waitForClick();
 
     // game over
     closeGWindow(window);
@@ -205,7 +205,7 @@ GRect initPaddle(GWindow window)
 {
     // Variable used to build the paddle and place it
     int paddle_width = (getWidth(window) / COLS) * 2;
-    int paddle_height = 20;
+    int paddle_height = 10;
     int y_location = 500;
     int x_location = getWidth(window) / 2 - (paddle_width / 2);
     
