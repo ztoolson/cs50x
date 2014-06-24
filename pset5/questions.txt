@@ -5,13 +5,16 @@ A.  BMP - 16 million (2^24)
     GIF - 256
 
 1.  Which of these formats supports animation?
-A.
+A.  GIF
 
 2.  What's the difference between lossy and lossless compression?
-A.
+A.  Lossy compression uses approximations when reconstructing data from
+    its compressed form for representing the original data  vs. a 
+    lossless compression which allows the original data to be perfectly 
+    reconstrcuted from the compressed data
 
 3.  Which of these formats is lossy-compressed?
-A.
+A.  JPG
 ______________________________________________________________________
 Read the article and answer questions 4, 5 
 http://d2o9nyf4hwsci4.cloudfront.net/2013/fall/psets/5/garfinkel.pdf

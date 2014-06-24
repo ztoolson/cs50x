@@ -53,6 +53,9 @@ int main(int argc, char * argv[]) {
 
   // Output cipher text to user
   printf("%s\n", user_text);
-  
+    
+  // Free memory
+  free(user_text);
+
   return 0;
 }
