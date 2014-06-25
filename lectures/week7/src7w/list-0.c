@@ -55,9 +55,9 @@ int main(void)
     node* ptr = first;
     while (ptr != NULL)
     {
-        node* predptr = ptr;
-        ptr = ptr->next;
-        free(predptr);
+        node* predptr = ptr; // get current item to free
+        ptr = ptr->next; // point to next item in the list
+        free(predptr); // free current item
     }
 }
 
@@ -131,11 +131,11 @@ void insert(void)
         first = newptr;
     }
 
-    // else check if number belongs at list's head
+    // else check if number belongs at list's head (IE new number is the lowest one being inserted)
     else if (newptr->n < first->n)
     {
-        newptr->next = first;
-        first = newptr;
+        newptr->next = first; // new item will now point to original first
+        first = newptr; // update first to the newptr
     }
 
     // else try to insert number in middle or tail
@@ -151,22 +151,23 @@ void insert(void)
                 break;
             }
 
-            // check for insertion at tail
+            // check for insertion at tail (IE newptr is the largest number in the list)
             else if (predptr->next == NULL)
             {
                 predptr->next = newptr;
                 break;
             }
 
-            // check for insertion in middle
+            // check for insertion in middle (IE insert between predptr and predptr->next)
             else if (predptr->next->n > newptr->n)
             {
-                newptr->next = predptr->next;
-                predptr->next = newptr;
+                // (predptr->n) < (newptr->n) < (predptr->next->n)
+                newptr->next = predptr->next; // newptr points to larger item in list
+                predptr->next = newptr; // predptr now points to newptr since
                 break;
             }
 
-            // update pointer
+            // update pointer to examine next element
             predptr = predptr->next;
         }
     }
@@ -210,7 +211,7 @@ void traverse(void)
     node* ptr = first;
     while (ptr != NULL)
     {
-        printf("%i ", ptr->n);
+        printf("%i-> ", ptr->n);
         ptr = ptr->next;
     }
 

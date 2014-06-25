@@ -13,8 +13,9 @@
 
 int main(void)
 {
-    char buffer[16];
+    char buffer[16]; // Allocated 16 char array
     printf("String please: ");
+    // If string.length > 15 then buffer overflow!
     scanf("%s", buffer);
     printf("Thanks for the %s!\n", buffer);
 }

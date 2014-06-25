@@ -15,6 +15,6 @@ int main(void)
 {
     int x;
     printf("Number please: ");
-    scanf("%i", &x);
+    scanf("%i", &x); // read in number from command line and put into the address of x
     printf("Thanks for the %i!\n", x);
 }

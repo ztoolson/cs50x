@@ -13,7 +13,7 @@
 
 int main(void)
 {
-    char* buffer;
+    char* buffer; // Not initialized, pointer is a "?" value
     printf("String please: ");
     scanf("%s", buffer);
     printf("Thanks for the %s!\n", buffer);
