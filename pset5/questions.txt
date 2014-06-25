@@ -18,9 +18,11 @@ A.  JPG
 ______________________________________________________________________
 Read the article and answer questions 4, 5 
 http://d2o9nyf4hwsci4.cloudfront.net/2013/fall/psets/5/garfinkel.pdf
+
 4.  What happens, technically speaking, when a file is deleted on a FAT file system?
 A.  The file is removed from the FAT tracking systems and the file's contents remain 
     on the drive and are marked as free space. 
+
 5.  What can someone like you do to ensure (with high probability) that files you delete
     cannot be recovered?
 A.  1. Destroy the hard drive physically or with a magnet
@@ -28,16 +30,46 @@ A.  1. Destroy the hard drive physically or with a magnet
 ______________________________________________________________________
 
 WHODUNNIT?
-6.  TODO
-7.  TODO
-8.  TODO
-9.  TODO
-10. TODO
-11. TODO
-12. TODO
-13. TODO
-14. TODO
-15. TODO
-16. TODO
-17. TODO
+6.  What is stdint.h?
+A.  stdint.h is a header file that declares sets of integer types having specific widths (number of bits to store the number)
+
+7.  What is the point of using uint8_t, uint32_t, int32_t and uint16_t in a program
+A.  To specify the width of the variable. This is particularly useful for images to ensure proper structure of the file.
+
+8.  How many bytes is a BYTE, a DWORD, a LONG, and a WORD? (Assume 32 bit architecture)
+A.  BYTE  - 1 byte (8bits)
+    DWORD - 4 bytes (32bits)
+    LONG  - 4 bytes (32bits)
+    WORD  - 2 bytes (16bits)
+
+9.  What (in ASCII, decimal, or hex) must the first 2 bytes of any BMP file be?
+A.  ASCII   - B    M 
+    Decimal - 66   77
+    Hex     - 0x42 0x4d
+
+10. What is the difference between bfSize and biSize?
+A.  bfSize - Describe the entire file's sie in bytes
+    biSize - Size of the BITMAPINFOHEADER in bytes (usually 40)
+
+11. What does it mean if biHeight is negative?
+A.  The image is top-down format instead of the default bottom-up for the image data.
+
+12. What field in BITMAPINFOHEADER specifies the BMP's color depth (i.e. bits per pixel)
+A.  biBitCount 
+
+13. Why might fopen return NULL in copy.c:37?
+A.  If the user does not write permission in the directory the file will be written to.
+
+14. Why is the third argument to fread always 1 in our code?
+A.  We only want to manipulate one struct per read.
+
+15. What value does copy.c:70 assign padding if bi.biWidth is 3?
+A.  3
+
+16. What does fseek do?
+A.  Sets the file position of the stream to a given offset. 
+
+17. What is SEEK_CUR?
+A.  The current position of the file pointer.
+
 18. TODO
