@@ -72,4 +72,5 @@ A.  Sets the file position of the stream to a given offset.
 17. What is SEEK_CUR?
 A.  The current position of the file pointer.
 
-18. TODO
+18. Whodunit?
+A.  Milo Banana dun it.
