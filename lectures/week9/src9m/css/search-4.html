@@ -1,0 +1,59 @@
+<!--
+
+search4.html
+
+David J. Malan
+malan@harvard.edu
+
+Demonstrates img tag (and block-level elements).
+
+-->
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <style>
+
+            #header
+            {
+                text-align: center;
+            }
+
+            #content
+            {
+                text-align: center;
+            }
+
+            #content input
+            {
+                margin: 5px;
+            }
+
+            #footer
+            {
+                font-size: smaller;
+                font-weight: bold;
+                margin: 20px;
+                text-align: center;
+            }
+
+        </style>
+        <title>CS50 Search</title>
+    </head>
+    <body>
+        <div id="header">
+            <img alt="CS50 Search" src="logo.gif"/>
+        </div>
+        <div id="content">
+            <form action="https://www.google.com/search" method="get">
+                <input name="q" type="text"/>
+                <br/>
+                <input type="submit" value="CS50 Search"/>
+            </form>
+        </div>
+        <div id="footer">
+            Copyright &#169; CS50
+        </div>
+    </body>
+</html>

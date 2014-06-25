@@ -1,0 +1,39 @@
+<!--
+
+geolocation-0.html
+
+Geolocates a user.
+
+David J. Malan
+malan@harvard.edu
+
+-->
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script>
+ 
+            function callback(position)
+            {
+                alert(position.coords.latitude + ', ' + position.coords.longitude);
+            }
+
+            function geolocate()
+            {
+                if (typeof(navigator.geolocation) != 'undefined')
+                {
+                    navigator.geolocation.getCurrentPosition(callback);
+                }
+                else
+                {
+                    alert('Your browser does not support geolocation!');
+                }
+            }
+
+        </script>
+        <title>geolocation-0</title>
+    </head>
+    <body onload="geolocate()"></body>
+</html>

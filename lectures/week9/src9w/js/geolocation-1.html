@@ -1,0 +1,36 @@
+<!--
+
+geolocation-1.html
+
+Geolocates a user, demonstrating an anonymous function.
+
+David J. Malan
+malan@harvard.edu
+
+-->
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <script>
+ 
+            function geolocate()
+            {
+                if (typeof(navigator.geolocation) != 'undefined')
+                {
+                    navigator.geolocation.getCurrentPosition(function(position) {
+                        alert(position.coords.latitude + ', ' + position.coords.longitude);
+                    });
+                }
+                else
+                {
+                    alert('Your browser does not support geolocation!');
+                }
+            }
+
+        </script>
+        <title>geolocation-1</title>
+    </head>
+    <body onload="geolocate()"></body>
+</html>
