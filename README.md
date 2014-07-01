@@ -34,7 +34,9 @@ pset4 - Breakout GUI Game
 
 pset5 - Forensics
 -----------------
-- // TODO
+- Whodunit and More
+- CSI (Computer Science Investigation
+- http://d2o9nyf4hwsci4.cloudfront.net/2014/spring/psets/5/pset5/pset5.html
 
 pset6 - Mispellings
 -------------------
