@@ -26,11 +26,11 @@ int main(int argc, char* argv[])
     char* infile  = argv[2];
     char* outfile = argv[3];
 
-    // check n value
-    if (n <= 0)
+    // check n value, must be in [1,100]
+    if (n < 1 || n > 100)
     {
-        printf("Please enter a resize value greater than or equal to 1\n");
-        return 5;
+        printf("Please ensire the resize n is in [1, 100]\n");
+        return 7;
     }
 
     // open input file 
