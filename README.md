@@ -40,7 +40,8 @@ pset5 - Forensics
 
 pset6 - Mispellings
 -------------------
-- // TODO
+- Build the fastest dictionary!
+- http://d2o9nyf4hwsci4.cloudfront.net/2014/spring/psets/6/pset6/pset6.html
 
 pset7 - C$50 Finance
 --------------------
