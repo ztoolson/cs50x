@@ -105,7 +105,7 @@ bool load(const char* dictionary)
     // allocate each string in the array and read in the file
     for (int i = 0; i < num_words; i++)
     {
-        // allocate string
+        // allocate max size of string
         dict_array[i] = malloc(LENGTH * sizeof(char));
         
         // check if we have memory

@@ -1,11 +1,36 @@
-0.  TODO
-1.  TODO
-2.  TODO
-3.  TODO
-4.  TODO
-5.  TODO
-6.  TODO
-7.  TODO
-8.  TODO
-9.  TODO
-10. TODO
+0.  What is pneumonoultramicroscopicsilicovolcanoconiosis?
+A.  An artificially long word to mean a lung disease caused by inhaling very find ash and sand dust.
+
+1.  According to its man page, what does getrusage do?
+A.  returns resource usage measures for who, where who can be self, children, thread.
+
+2.  Per that same man page, how many members are in a variable of type struct rusage?
+A.  16
+
+3.  Why do you think we pass before and after by reference (instead of by value) to calculate, even though we're not changing their contents? 
+A.  Passing in a reference avoid making unecessary copies of the before and after structs. 
+
+4.  Explain as precisely as possible, in a paragraph or more, how main goes about reading words from a file. In other words, convince us that you indeed understand how that function's for loop works.
+A.  First the file reads in each char from the file, until it hits the EOF char. Then, if the char is an alpha character or a ', it will continue to build up a string until it hits a number, or '\0' char. Then check the words spelling and repeat for the next word.
+
+
+5.  Why do you think we used fgetc to read each word's characters one at a time rather than use fscanf with a format string like "%s" to read whole words at a time? Put another way, what problems might arise by relying on fscanf alone?
+A.  Using fscanf alone will not be sufficient without knowing the length of each word. This will either waste memory, or can be vulnerable to a string buffer overflow attack.
+
+6.  Why do you think we declared the parameters for check and load as const?
+A.  The const keyword means that the function will not modify the value that the ponter points to (IE modify the string being passed in). 
+
+7.  What data structure(s) did you use to implement your spell-checker? Be sure not to leave your answer at just "hash table," "trie," or the like. Expound on what's inside each of your "nodes."
+A.  I used a simple array of strings leveraging the fact that the dictionary file is already sorted. This does not waste any memory, and allows the lookups to be done using binary search (log(n), where n is number of words in dictionary). 
+    In the future, I would plan to implement a hash table since the lookup would be faster with an array of nodes. Each node would contain the string, and a reference to another node to handle collisions with the hash.
+    Building a binary tree is not useful since the file is already sorted, inserting them into a binary tree essentially makes a linked list (with extra memory for another node pointer).
+    For a Trie, I thought the memory tradeoffs weren't worth the speed, although I'm not sure if the hash table or trie would yield faster checks. The loading would take significant time.
+
+8.  How slow was your code the first time you got it working correctly?
+A.  I got my array implementation working the first time, and it is much faster than the staffs solution.
+
+9.  What kinds of changes, if any, did you make to your code over the course of the week in order to improve its performance?
+A.  I didn't make any changes to my algorithm, but if I did then I would have implemented a hash table. Maybe if I find some more time in the future I will come back to this.
+
+10. Do you feel that your code has any bottlenecks that you were not able to chip away at?
+A.  The log(n) lookup isn't ideal for each check. But given the problem, the memory trade offs caused a more efficient solution than the cs50 library.
