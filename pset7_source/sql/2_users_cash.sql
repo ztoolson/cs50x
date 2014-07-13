@@ -1,0 +1,1 @@
+LTER TABLE  `users` ADD  `cash` DECIMAL( 65, 4 ) UNSIGNED NOT NULL AFTER  `hash`
