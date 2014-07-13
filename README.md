@@ -45,7 +45,8 @@ pset6 - Mispellings
 
 pset7 - C$50 Finance
 --------------------
-- // TODO
+- Buy and Sell stocks online
+- http://d2o9nyf4hwsci4.cloudfront.net/2014/spring/psets/7/pset7/pset7.html
 
 pset8 - CS50 Shuttle
 --------------------
