@@ -3,7 +3,3 @@
 <?php else : ?>
     Successfully bought <?= $shares ?>  shares of <?= $symbol ?> for $<?= number_format($price, 2) ?>.
 <?php endif; ?>
-<div>
-    <br/>
-    return to <a href="/">portfolio</a>.
-</div>
