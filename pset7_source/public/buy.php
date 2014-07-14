@@ -51,6 +51,9 @@
                 $yhoo_results["symbol"],
                 $_POST["amount"]);
 
+        // update cash
+        query("UPDATE users SET cash = cash - ? WHERE id = ?", $cash_needed, $_SESSION["id"]);
+
         // save transaction in history
         query("INSERT INTO users_history (id, transaction, trans_time, symbol, shares, price) VALUES(?, ?, NOW(), ?, ?, ?)",
             $_SESSION["id"],

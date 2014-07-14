@@ -29,7 +29,7 @@ CREATE TABLE `users` (
   `cash` decimal(64,4) unsigned NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -38,7 +38,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'caesar','$1$50$GHABNWBNE/o4VL7QjmQ6x0',10000.0000),(2,'hirschhorn','$1$50$lJS9HiGK6sphej8c4bnbX.',10000.0000),(3,'jharvard','$1$50$RX3wnAMNrGIbgzbRYrxM1/',10000.0000),(4,'malan','$1$HA$azTGIMVlmPi9W9Y12cYSj/',10000.0000),(5,'milo','$1$HA$6DHumQaK4GhpX8QE23C8V1',10000.0000),(6,'skroob','$1$50$euBi4ugiJmbpIbvTTfmfI.',13568.5000),(7,'zamyla','$1$50$uwfqB45ANW.9.6qaQ.DcF.',10000.0000),(8,'zach','$1$d.0UmtJW$vgTX1oPh96Zj1.re/C0Cw.',10000.0000);
+INSERT INTO `users` VALUES (1,'caesar','$1$50$GHABNWBNE/o4VL7QjmQ6x0',10000.0000),(2,'hirschhorn','$1$50$lJS9HiGK6sphej8c4bnbX.',10000.0000),(3,'jharvard','$1$50$RX3wnAMNrGIbgzbRYrxM1/',10000.0000),(4,'malan','$1$HA$azTGIMVlmPi9W9Y12cYSj/',10000.0000),(5,'milo','$1$HA$6DHumQaK4GhpX8QE23C8V1',10000.0000),(6,'skroob','$1$50$euBi4ugiJmbpIbvTTfmfI.',13568.5000),(7,'zamyla','$1$50$uwfqB45ANW.9.6qaQ.DcF.',10000.0000),(8,'zach','$1$ywhhvOzU$CO.lcIaDE8CvYzTpgja4O1',9548.7451);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +66,7 @@ CREATE TABLE `users_history` (
 
 LOCK TABLES `users_history` WRITE;
 /*!40000 ALTER TABLE `users_history` DISABLE KEYS */;
-INSERT INTO `users_history` VALUES (6,'BUY','2014-07-13 14:21:31','FIO',33,11.2800),(6,'BUY','2014-07-13 14:23:27','FIO',1,11.2800),(6,'SELL','2014-07-13 14:27:28','FIO',2,11.2800),(8,'BUY','2014-07-13 15:23:23','FIO',243,11.2800);
+INSERT INTO `users_history` VALUES (6,'BUY','2014-07-13 14:21:31','FIO',33,11.2800),(6,'BUY','2014-07-13 14:23:27','FIO',1,11.2800),(6,'SELL','2014-07-13 14:27:28','FIO',2,11.2800),(8,'BUY','2014-07-13 15:23:23','FIO',243,11.2800),(8,'BUY','2014-07-13 16:24:08','GOOG',3,579.1800),(8,'SELL','2014-07-13 16:25:29','FIO',3,11.2800),(8,'BUY','2014-07-14 11:07:42','LNKD',20,160.7520),(8,'BUY','2014-07-14 11:08:10','GOOG',5,580.9810),(8,'BUY','2014-07-14 11:11:29','LNKD',3,161.6983);
 /*!40000 ALTER TABLE `users_history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +91,7 @@ CREATE TABLE `users_stocks` (
 
 LOCK TABLES `users_stocks` WRITE;
 /*!40000 ALTER TABLE `users_stocks` DISABLE KEYS */;
-INSERT INTO `users_stocks` VALUES (6,'FIO',150),(6,'GOOG',50),(6,'YHOO',498),(8,'FIO',243);
+INSERT INTO `users_stocks` VALUES (6,'FIO',150),(6,'GOOG',50),(6,'YHOO',498),(8,'FIO',240),(8,'GOOG',8),(8,'LNKD',26);
 /*!40000 ALTER TABLE `users_stocks` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -104,4 +104,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-07-13 15:37:56
+-- Dump completed on 2014-07-14 11:13:58
